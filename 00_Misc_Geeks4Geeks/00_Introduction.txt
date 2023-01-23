@@ -1,0 +1,63 @@
+### Finding an Interpreter:
+Before we start Python programming, we need to have an interpreter to interpret and run our programs.
+There are certain online interpreters like https://ide.geeksforgeeks.org/ that can be used to run
+Python programs without installing an interpreter.
+
+### Reason for increasing popularity
+1. Emphasis on code readability, shorter codes, ease of writing
+2. Programmers can express logical concepts in fewer lines of code in comparison to languages
+    such as C++ or Java.
+3. Python supports multiple programming paradigms, like object-oriented, imperative and functional
+    programming or procedural.
+4. There exists inbuilt functions for almost all of the frequently used concepts.
+5. Philosophy is “Simplicity is the best”.
+
+### LANGUAGE FEATURES
+1. Interpreted
+    a. There are no separate compilation and execution steps like C and C++.
+    b. Directly run the program from the source code.
+    c. Internally, Python converts the source code into an intermediate form called bytecodes which is then translated into native language of specific computer to run it.
+    d. No need to worry about linking and loading with libraries, etc.
+2. Platform Independent
+    a. Python programs can be developed and executed on multiple operating system platforms.
+    b. Python can be used on Linux, Windows, Macintosh, Solaris and many more.
+3. Free and Open Source; Redistributable
+4. High-level Language
+    In Python, no need to take care about low-level details such as managing the memory used by the program.
+5. Simple
+    a. Closer to English language;Easy to Learn
+    b. More emphasis on the solution to the problem rather than the syntax
+6. Embeddable
+    Python can be used within C/C++ program to give scripting capabilities for the program’s users.
+7. Robust:
+    a. Exceptional handling features
+    b. Memory management techniques in built
+8. Rich Library Support
+    a. The Python Standard Library is very vast.
+    b. Known as the “batteries included” philosophy of Python ;It can help do various things involving regular expressions, documentation generation, unit testing, threading, databases, web browsers, CGI, email, XML, HTML, WAV files, cryptography, GUI and many more.
+    c. Besides the standard library, there are various other high-quality libraries such as the Python Imaging Library which is an amazingly simple image manipulation library.
+
+
+### Python vs JAVA
+
+a) Python - Dynamically Typed
+
+No need to declare anything. An assignment statement binds a name to an object, and the object can be of any type.
+No type casting is  required when using container objects
+
+Concise Express much in limited words
+
+Compact
+
+Uses Indentation for structuring code
+
+b) JAVA - Statically Typed
+
+All variable names (along with their types) must be explicitly declared. Attempting to assign an object of the wrong type to a variable name triggers a type exception.
+Type casting is required when using container objects.
+
+Verbose Contains more words
+
+Less Compact
+
+Uses braces for structuring code
