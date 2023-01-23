@@ -1,0 +1,31 @@
+# In this complete section, we will look at some popular packages in the python community.
+
+API : Application Programming Interface
+
+A lot of websites make their data available to others via APIs.
+APIs are end point that are public accessible on the internet.
+So they have url just like websites.
+
+For example: Yelp has an API for searching for businesses : /businesses/search
+
+This api has an endpoint https://api.yelp.com/v3/businesses/search
+
+So we can send a http request to this endpoint to get a list of businesses that match some criteria.
+
+HTTP request methods:
+GET, POST, PUT, DELETE.
+
+-----------------------------------------------------------------------------------------------------
+
+Yelp API:
+
+https://www.yelp.com/developers
+
+Yelp Fusion : for finding businesses, working with events, categories, etc.
+
+To get started, first we need to create a new app.
+Upon creating a new app, a client id and API key will be generated.
+
+Client ID uniquely identifies our application. (Just like a username for an application).
+
+API key will be needed when we want to connect to any endpoints. (it is like a password, for security)
