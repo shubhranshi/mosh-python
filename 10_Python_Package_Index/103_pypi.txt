@@ -1,0 +1,10 @@
+PyPI : https://pypi.org
+
+PyPI is a repository for Python packages built by the community.
+
+The Python Package Index (PyPI) is a repository of software for the Python programming language.
+
+Pypi is an opensource packages in python, lots of resources from community.
+There are times we need features that are not implemented in pyton standard library.
+
+We will see how to install and use these packages in our code.

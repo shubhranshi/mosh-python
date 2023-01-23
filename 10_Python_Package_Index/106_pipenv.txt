@@ -1,0 +1,47 @@
+Pipenv is a tool that combines pip and virtual environments into a single tool chain.
+It is a dependency manager for python projects.
+It internally uses pip and virtual environments.
+
+Command to install Pipenv:
+> pip install pipenv
+
+(we can delete the "env" directory in our project as we dont need it anymore.
+ we will use pipenv to automatically create virtual directory.)
+
+-------------------------------------------------------------------------------------------
+
+Instead of using pip to install a package we use Pipenv
+> pipenv install <name of the packages>
+> pipenv install requests
+
+-------------------------------------------------------------------------------------------
+
+After it creates the virtual environment (use the command to see the path),
+and some other files like Pipfile and Pipfile.lock, but we do not need to use this path
+
+> pipenv --venv
+
+C:\Users\user\.virtualenvs\HelloWorld-DELSOGnB
+
+(gives the path of our virtual environment directory)
+
+-------------------------------------------------------------------------------------------
+
+If we run "python app.py" that needs a "requests" module installed locally in our virtual environment,
+it will not know where to find, and if not found globally, it will give error.
+So, we need to activate the virtual env.
+
+To activate the virtual environment use the following commands,
+inside the folder we are working, where we have the files "Pipfile.lock" and "Pipfile"
+
+> pipenv shell
+
+
+Now run app.py
+> python app.py
+we will get the output. <Response [200]>
+
+-------------------------------------------------------------------------------------------
+
+To deactivate use the following command
+> exit

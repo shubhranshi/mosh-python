@@ -1,0 +1,36 @@
+When we install a package using pipenv, two file are automatically created.
+Pipfile
+Pipfile.lock
+
+This two file are used to keep track of dependencies of our project and their version.
+
+Inside Pipfile, there are 4 sections: "source" - specifies the address of the repository where these package
+are downloaded from, "dev-packages" - packages that are used only during the development and are not used while
+running the application, "packages" - packages on which our application is dependent on, "requires" - species
+the version of python needed to run this application
+
+Pipfile.lock is a json file that lists the dependencies of our application and their exact versions.
+This file contains all the necessary information, and we can take our source code and the information in this file
+and put it on another machine (like a production environment) and reproduce the exact execution environment.
+This helps us to eliminate the situation that a piece of code runs well on our local machine but doesnt run
+on the production machine because of different versions of dependencies.
+
+WORKFLOW: (to put code & dependencies on another machine)
+
+1. Find the virtual environment for the current project.
+> pipenv --venv
+(We assume that on other machine this environment doesnt exists)
+it should show: "no virtual environments have been created"
+
+We just have the source code files and the pipfile and pipfile.lock.
+
+2. If we change to a different machine, with this to file just run the following command
+to install the packages and its dependencies
+> pipenv install
+
+pipenv will look at the pipfile and install all the dependencies.
+Now when we run pipenv --venv we should see the virtual environment path.
+
+3. If we want to install the exact same versions (as in the pipfile.lock), we need to bypass "Pipfile"
+and use "Pipfile.lock", with the following command:
+> pipenv install --ignore-pipfile

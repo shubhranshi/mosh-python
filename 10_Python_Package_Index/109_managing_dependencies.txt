@@ -1,0 +1,14 @@
+Useful commands for managing the dependencies of our application:
+
+Run the following command to see a list of all the installed Dependencies.
+We can also see the dependencies of the packages installed along with their versions.
+> pipenv graph
+
+In case we want to find the outdated package & update dependencies to their latest compatible versions
+according to the versions given in the "packages" of our pipfile.
+> pipenv update --outdated
+
+To update all packages in our project virtual environment
+> pipenv update
+Or we can specify the name of the package
+> pipenv update requests

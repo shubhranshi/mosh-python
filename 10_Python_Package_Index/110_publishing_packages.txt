@@ -1,0 +1,78 @@
+How to publish our own packages to pypi.org
+https://packaging.python.org/tutorials/packaging-projects/
+
+Here are some steps
+
+1. Create a new account on pypi.org.
+
+2. We need to install some tools (3 tools: setuptools, wheel, twine) globally:
+
+> pip install setuptools wheel twine
+
+3. Create new directory (that will have all our package files)
+
+> mkdir mypdf
+> cd mypdf
+
+This should have below folders. The name of the package can be same as
+the high level directory "mypdf" that has all the code
+
+- mypdf
+    - data  (sample data)
+    - mypdf (source code goes here)
+        - __init__.py   (to indicates python that this is a package)
+        - pdf2text.py   (add modules)
+    - test (unit testing)
+
+
+4. We need to add additional 3 files in order to publish this package.
+setup.py (important) - add at the root level
+README.md - markdown file, content in this file will be displayed on the homepage of our package on Pypi
+LICENSE - (we can get a basic license template from http://choosealicense.com and paste it here)
+
+- mypdf
+    - data
+    - mypdf
+        - __init__.py
+        - pdf2text.py
+        - pdf2image.py
+    - test
+    - setup.py
+    - README.md
+    - LICENSE
+
+
+Inside "setup.py":
+
+    import setuptools
+    from pathlib import Path
+
+    setuptools.setup(
+        name="mypdf",      # name of our package, should not conflict with the existing packages on pypi
+        version=1.0,
+        long_description=Path("README.md").read_text(),
+        packages=setuptools.find_packages(exclude=["test", "data"])   # indicates what packages are going to be distributed/published
+    )
+    # "find_packages()" this method looks at our project and automatically discovers defined packages.
+    # However we can tell it to exclude 2 directories (test, data) as they do not include source code by
+    # giving them as an argument in an array to this function
+
+
+Inside "README.md":
+
+    This is the homepage of our project.
+
+
+5. Now to generate distribution package, in the terminal execute below command (inside root directory):
+> python setup.py sdist bdist_wheel
+
+We generate 2 distribution packages with this - source distribution, and build distribution.
+2 folders get added to the root level - build, and dist.
+
+6. Final step is to upload it on Pypi.org.
+Execute below command on terminal:
+> twine upload dist/*
+Enter your username: ---
+Enter your password: ***
+
+Now the package is uploaded on Pypi.

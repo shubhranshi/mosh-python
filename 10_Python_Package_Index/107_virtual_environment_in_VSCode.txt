@@ -1,0 +1,18 @@
+If we try to run the program using code error(normal "run" in our editor) we will get the same error
+
+ModuleNotFoundError: No module named 'requests'
+
+Because VSCode(editor) is running this program using the Python interpreter that is installed globally.
+And that Python interpreter can not find the module.
+To fix this problem we need to tell code runner to use the Python interpreter that is in our virtual environment.
+
+To get the virtual environment folder run the command:
+> pipenv --venv
+
+In this case it will be:
+C:\Users\user\.virtualenvs\HelloWorld-DELSOGnB
+
+We need to go the user setting of the file extension (Preferences/Setting/open the json), and add this to the json file:
+    "code-runner.executorMap": {
+        "python": "C:\\Users\\user\\.virtualenvs\\HelloWorld-DELSOGnB\\Scripts\\python",
+    }
