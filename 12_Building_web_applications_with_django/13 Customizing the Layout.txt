@@ -1,0 +1,25 @@
+13 Customizing the Layout
+
+We are going to customize the base.html template.
+We will add a bootstrap navigation bar.
+
+Go to https://getbootstrap.com/docs/4.5/components/alerts/
+
+To add Navbar https://getbootstrap.com/docs/4.5/components/navbar/
+We will add a simple Navbar called 'Brand'
+
+In the 'base.html', add the following code right after the <body> tag:
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+</nav>
+
+We can customize the movie table, so that it appears in the center of the page.
+In the base.html file, wrap the 'content' block by putting it inside a container.
+<main class="container">
+    {% block content %}
+    {% endblock %}
+</main>
+
+To add vertical borders to this table:
+In the index.html add the following classes to the table tag (also add the hover effect)
+<table class="table table-bordered table-hover">

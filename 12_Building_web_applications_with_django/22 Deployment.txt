@@ -1,0 +1,80 @@
+22 Deployment
+
+To deploy to the cloud service first we are going to commit our code to a git repository.
+We will set a local repository and then a repository in Heroku, that mirrors our local repository.
+(So basically, 2 repositories, one local, one in Heroku)
+When we are ready to deploy we push the changes form our local repository to a repository in Heroku.
+
+Heroku has a process, that sits in the background and its constantly watching these git repositories.
+Whenever it detects changes in this repository, it will check out the latest source code from this
+repository and copy it to the right folder
+
+.py files -----(commit)----> local repo -----(push)----> heroku repo
+
+1. Initialize a local git repository in the root folder of our app.
+> git init
+
+2. Add file to git everytime we make changes to the code.
+We use the "." to add all the new and modified files and folders.
+This adds them to the staging area and prepares them to be included in the next commit.
+> git add .
+
+3. Add a commit
+We use the argument "-m" to add a message to the commit.
+> git commit -m "My message"
+> git commit -m "Initial commit"
+
+4. Now we need to create a Heroku app using Heroku CLI.
+First we login with the following command.
+> heroku login
+This will ask to open the browser to enter credential.
+We can also give the credentials in the terminal itself, using
+> heroku login -i
+
+5. Then we run the command to create a new Heroku app.
+> heroku create
+It will create an app with a random name (secret-refuge-81953).
+We can also give our name to the app. But that name has to be unique.
+> heroku create fidly123
+
+In this case, we use
+> heroku create --stack heroku-20
+(to avoid compatibility issues)
+
+If this command terminates successful 3 thing happen.
+Heroku will create an app with an address;
+Heroku will create a git repository with an address;
+And then it tells our current local repository, about this new remote Heroku repository.
+
+We will see in the terminal:
+Creating app... done, ⬢ sheltered-tundra-05087, stack is heroku-20
+https://sheltered-tundra-05087.herokuapp.com/ | https://git.heroku.com/sheltered-tundra-05087.git
+
+6. Now to deploy our application we need to run:
+> git push heroku master
+This will push our local master branch to the heroku repository.
+If we dont get any error, means our application is deployed, and it generate the URL:
+https://sheltered-tundra-05087.herokuapp.com/
+
+7. Now we need to tell Heroku to allocate one webserver to this application.
+> heroku ps:scale web=1
+With this line of code we are allocating one webserver to our app.
+In future, if we have thousands of users, we can come back here and allocate more web servers by
+increasing this number.
+
+8. Now finally, we can open our application in web browser using:
+> heroku open
+(By default, we will get "DisallowedHost" error, This is to prevent a common security attack called
+ HTTP Host header attacks, to fix this problem apply the next step)
+
+9. If we have not done this before, we have to add the address of our app(website) to the
+ "ALLOWED_HOSTS" list in the "setting.py" module.
+ALLOWED_HOSTS = [
+    "sheltered-tundra-05087.herokuapp.com"
+]
+Then we need to update our local repository, and then push it to Heroku
+
+> git add .
+> git commit -m "Add Heroku app to allowed hosts."
+> git push heroku master
+Now refresh the website, Voila!! We can now access our application, admin interface, and the APIs.

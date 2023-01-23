@@ -1,0 +1,70 @@
+06 Migrations
+
+After creating our models classes we should be able to store the model objects in a database.
+
+The Django admin automatically created a sqlite database for us. See file "db.sqlite3"
+SQLite is a very simple lightweight database for small applications or for mobile devices, but
+not suitable for enterprises web applications as it doesnt have features like security and concurrency.
+Django supports other database engines apart from SQLite like MySQL, PostgreSQL, etc.
+
+Open DB Browser for SQLite (application in Laptop). And open the /movies/db.sqlite3 file in it.
+Currently, we don't have any tables in our database.
+We don't have to create them manually, Django will automatically do it based on our models.
+
+Every time we create new model classes or modify existing ones,
+we tell Django to compare our models classes with our database.
+Django will look at the database, it will figure out what tables and column we have,
+and calculate the difference between our models and the database table.
+And based on that it will create a migration. Migration is essentially a Python file, that includes
+some code. When we run that file it will synchronize our database with our models classes.
+
+First we need to register our movies app with Django.
+We do that in the "settings.py" from the main app "fidly". in the installed apps list
+It comes with pre-installed app from Django.
+We must add the path to the class in the "apps.py" module from the "movies" app.
+
+INSTALLED_APPS = [
+    'django.contrib.admin', # This creates an administration panel
+    'django.contrib.auth', # This is an authentication framework, that will authenticate user and what permissions they have.
+    'django.contrib.contenttypes', # This is framework to create generic relationships between model classes.
+    'django.contrib.sessions', # This is a framework that allows us to temporarily store information about the current user.
+    'django.contrib.messages', # We use this in situations to redirect a user and display a message. For example when a user creates a new movie and we display a message like "the movie was successful created".
+    'django.contrib.staticfiles', # This is used to manage static files like css files images and so on.
+    'movies.apps.MoviesConfig'  # This the code we need to add, need to give the complete path movies -> apps -> MoviesConfig.
+]
+
+Then we run the following command to create the migration file:
+> python manage.py makemigrations
+
+It will detect the new classes in the "models.py" module form the movies app, and create a migration file.
+In the movies\migrations\0001_initial.py.
+
+This file contains changes that need to be made to our database.
+Also, Django automatically adds the "id" field to uniquely identify each object.
+This migration is not executed yet.
+It simples describes the operations that need to be done to update the database accordingly
+to our model classes from the movies app.
+
+The next step is to run this migration with the command:
+> python manage.py migrate
+
+This will run all the pending migrations on our data base.
+
+So, each migration is prefixed with the name of the app that contains it.
+Example --
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  .
+  .
+  Applying movies.0001_initial... OK
+  Applying sessions.0001_initial... OK
+
+Therefore, each app can have its own models and migration.
+So now we can see all the tables, if we open db.sqlite3 in DB Browser.
+The tables are named by model names prefixed with the name of the app
+<app name>_<model>
+
+Django automatically creates the tables, no need for manual creation.
+
+We also have a table "django_migrations" where django keeps a track of all the migrations applied.

@@ -1,0 +1,53 @@
+12 Adding Bootstrap
+
+https://getbootstrap.com/
+
+In this lesson we are going to add Bootstrap to our application.
+It is a CSS framework, responsive and mobile friendly. (gives a modern look)
+
+Go to https://getbootstrap.com/docs/4.5/getting-started/introduction/
+https://getbootstrap.com/docs/4.5/getting-started/introduction/#starter-template
+
+We can get the CSS file.
+
+Copy the Starter Template html code
+
+In the "movies" app, go to the "templates\movies" folder.
+And create a new html file with the name "base.html"
+This will be the basic template for all the pages in our "movies" app.
+Paste the Starter Template html code.
+
+In the body section we want to define a placeholder for our other templates.
+So we add a block and name it content
+
+
+<body>
+    {% block content %}
+    {% endblock %}
+</body>
+
+And now open the index.html and there we need to add another template tag called 'extends'.
+And put our table inside the block content
+{% extends 'movies/base.html' %}    # to reference our base.html
+{% block content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Stock</th>
+                <th>Daily Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies %}
+                <tr>
+                    <td>{{ movie.title }}</td>
+                    <td>{{ movie.genre }}</td>
+                    <td>{{ movie.number_in_stock }}</td>
+                    <td>{{ movie.daily_rate }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

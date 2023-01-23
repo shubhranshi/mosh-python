@@ -1,0 +1,52 @@
+10 Database Abstraction API
+
+Earlier we built a view function in the "movies" app to respond to request sent
+to the endpoint http://127.0.0.1:8000/movies
+We are going to modify this page to show the list of movies in this page.
+
+Our classes(Movie, Genre) in "models.py" module are derived from the "Model" class
+from the "django.db" module. But why? -->
+The "Model" class gives us a bunch of method to work with the database.
+If we want to store a movie object in our database we simply call one of this method called "save()".
+That "save()" method will internally take care of generating the right SQL statement to update
+the database. This is what we call a Database Abstraction API.
+This "Model" class gives us an API, and this API abstracts away the complexity of working
+with the database.
+
+To use this API to get the list of movies from the database.
+In the "movies/view.py", we import the class "Movie" from "models.py".
+
+from .models import Movie
+
+In our "index()" function we can use statements like
+
+        Movie.objects.all()
+        # With this statement we can get all the movies objects in our database.
+        # Django will generate a SQL statement like this: SELECT * FROM movies_movie
+
+        Movie.objects.filter(release_year=1984)
+        # With this statement we can filter the movies objects in our database, with a keyword argument.
+        # This will generate a SQL statement like this: SELECT * FROM movies_movie WHERE release_year=2009
+
+        Movie.objects.get(id=1)
+        # We use this statement to get a single object, by a keyword argument. In this case "id".
+
+There more method to save and delete objects from the database, and so on.
+All these methods represent Database Abstraction API, that simplify a lot of cases.
+When we are dealing with more complex cases, and these methods do not do want we need,
+we can always send raw SQL statements to our database.
+
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Movie # Importing the "Movie" class
+
+def index(request):
+    movies = Movie.objects.all()
+    output = ", ".join([m.title for m in movies])
+    return HttpResponse("Hello World!")
+
+In this example we first get all the movies in our database, in the variable movies.
+Then we create a list comprehension, iterating over movies and extracting the title.
+And in the variable "output" we use the "join()" function to joint each title with a comma.
+
+This will display im the Terminator, Hangover in our page (http://127.0.0.1:8000/movies/).

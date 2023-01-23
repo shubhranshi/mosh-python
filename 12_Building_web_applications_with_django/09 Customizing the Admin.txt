@@ -1,0 +1,52 @@
+09 Customizing the Admin
+
+To display the labels in the administration table, instead of having the default representation
+of an object as a string for example "Genre object (1)".
+One way to fix this is to override the "str" magic method in that class.
+
+In the "models.py" module we need to define a functions with the "__str__(self)" magic method
+to our classes.
+
+For the Genre class:
+def __str__(self):
+        return self.name
+
+For the Movie class
+
+def __str__(self):
+        return self.title
+
+
+Lets say we want to add another column here, to see the id of the genre.
+To personalize the table and fields in the administration panel for our models
+we need to create a new class in the "admin.py" module from the "movies" app.
+
+We already register Genre class with the admin. To customize how we want to work with Genre
+in the admin panel, we need to create another class called GenreAdmin.
+
+By convention, we use the name of the class model and concatenate "Admin".
+"GenreAdmin" and "MovieAdmin".
+And we should derive this class from "admin.ModelAdmin" class from the "django.contrib" module.
+This "admin.ModelAdmin" class is the representation of a module in the admin panel interface.
+And by deriving our classes from the "admin.ModelAdmin" class, we inherit all the features from it,
+and then we can override them.
+
+Then we can set the "list_display" attribute to a tuple with the columns we want to see.
+We can use "fields" attribute to specify the fields we want to see in our form. Set to a tuple.
+Use the exclude attribute to specify the fields we want to exclude from the form. Set to a tuple.
+
+Now when registering the Genre with admin, we should also pass GenreAdmin model.
+
+
+class GenreAdmin(admin.ModelAdmin):
+    list_display = ("id", "name")
+
+
+class MovieAdmin(admin.ModelAdmin):
+    # fields = ('title', 'genre')
+    exclude = ("date_created", )
+    # need to include ',' because the tuple has only one item, otherwise Python will think that
+    # it is a string wrapped in parentheses.
+    list_display = ('title', 'number_in_stock', 'daily_rate')
+
+admin.site.register(Genre, GenreAdmin)

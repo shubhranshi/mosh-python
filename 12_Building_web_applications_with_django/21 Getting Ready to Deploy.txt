@@ -1,0 +1,85 @@
+21 Getting Ready to Deploy
+
+We are going to deploy this application to a cloud platform Heroku.
+The steps we are going to through are specific to Heroku. Other cloud platform may be different.
+
+1. Create an account in Heroku
+https://heroku.com
+
+
+2. Download and install Heroku CLI
+CLI stand for Command Line Interface.
+It is basically a program we run on the terminal, and with this program we are going to perform
+some administrative tasks (for eg. analysing logs).
+https://devcenter.heroku.com/articles/heroku-cli#download-and-install
+
+3. Install git
+git is a version control system. With that we can version our.
+We are going to check our code into a repository. and everytime we make changes to it,
+we are going to commit it to the repository.
+https://git-scm.com/
+
+
+Now, go to the terminal of our fidly application, and check whether we have installed both the above steps:
+> git --version
+> heroku --version
+
+4. We need to install a package called "gunicorn".
+It is a popular webserver for Python applications.
+Because the webserver we have used so far is a simple, lightweight server,
+not recommend for production environments.
+https://docs.gunicorn.org/en/stable/
+> pipenv install gunicorn
+
+5. In the root of our project we need to add a new file named:
+"Procfile"
+It is short for Process file
+This is a special file that Heroku looks at to start our application.
+In this file we need to write the following lines of code:
+web: gunicorn fidly.wsgi
+With this we are telling Heroku that we need a "web" processing.
+And to start that processing we need to load "gunicorn" that is our webserver.
+And the name of the module that "gunicorn" should use to start our application.
+In our case the module is fidly.wsgi (wsgi = wes server gateway interface)
+
+6. Now we need to prepare the static files for deployment.
+Static file are css files, images, JavaScript files and so on.
+(In this application, we currently dont have any static files, but the admin interface that we have
+used so far has a number of static files. So we need to bring those static files into our current
+project and deploy them to Heroku.)
+Create a new folder in the root of the project for the static files names "static"
+First we need to open the "setting.py"
+Then at the end we need define a new variable. And set it to the path of the folder that contains
+our static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+And then run in the terminal window.
+> python manage.py collectstatic
+This command will look to all the installed apps, and get their static files and copy then to the static folder.
+
+
+7. To serve this static files in Heroku we should also install a package called "whitenoise"
+This step is specific to Heroku. Other cloud platforms, may not require this.
+This package is used for serving static files.
+> pipenv install whitenoise
+
+Go to pypi.org, search for whitenoise. https://pypi.org/project/whitenoise/
+Open the documentation - https://whitenoise.evans.io/en/stable/
+
+8. Then look into the documentation of "whitenoise" to see how to use it with Django.
+Edit your settings.py file and add WhiteNoise to the MIDDLEWARE list.
+The WhiteNoise middleware should be placed directly after the Django SecurityMiddleware
+(if you are using it) and before all other middleware:
+MIDDLEWARE = [
+  'django.middleware.security.SecurityMiddleware',
+  'whitenoise.middleware.WhiteNoiseMiddleware',
+  # ...
+]
+
+These middleware objects are used as part of processing the http request that we receive in our
+web server. With this middleware, we ll be able to serve static files. So when there is a request,
+or a static file like css file or an image, this middleware will kick in and do all the hard work.
+
+That’s it – WhiteNoise will now serve your static files (you can confirm it’s working using the steps below).
+However, to get the best performance you should proceed to step 3 below and enable compression and caching.
+http://whitenoise.evans.io/en/stable/django.html
+http://whitenoise.evans.io/en/stable/django.html#enable-whitenoise

@@ -1,0 +1,32 @@
+15 Url Parameters
+
+
+In case we want to add a new page that show the movies details.
+Like, we can click the name of the movie and the details page open up.
+
+First we create a new path in our "urlpatterns" variable in the "url.py" from the "movies" app.
+
+Our url is going to take a parameter, in this case the movie "id"
+For example:
+http://127.0.0.1:8000/movies/1
+
+We use angle brackets to define a parameter '<>'
+(To refresh our prev lecture: The main urls module in our project hands off any url's that starts
+with 'movies/' to this url's module in the movies app)
+
+In this case we prefix it with "int" to force an integer as the parameter.
+Because our movies id are integers.
+
+urlpatterns = [
+    path("", views.index, name="movies_index"),
+    path("<int:movie_id>", views.detail, name="movies_details")
+]
+
+
+Then create the view function in the view.py in movies app
+
+def detail(request, movie_id):
+    return HttpResponse(movie_id)
+
+Our function receives the "request" parameter and the "movie_id" parameter that we defined
+in the "urlpatterns".
